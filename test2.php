@@ -3,7 +3,7 @@
 
 # Includes
 require_once('Methods/MethodsJSONRPC.class.php');
-require_once('Controllers/BoxeeBoxJSONRPC.class.php');
+require_once('Connections/BoxeeBoxJSONRPC.class.php');
 
 # Create JSON RPC Methods Object
 $JSONRPC = new MethodsJSONRPC();

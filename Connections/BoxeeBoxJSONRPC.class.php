@@ -10,7 +10,7 @@ define('JSONRPC_PORT', '9090');
 define('READ_LENGTH', 2048);
 
 /** 
-* Base class for BoxeeBox JSONRPC Remote Control Methods
+* Handle BoxeeBox JSONRPC communication via a TCP Socket
 */
 class BoxeeBoxJSONRPC
 {
