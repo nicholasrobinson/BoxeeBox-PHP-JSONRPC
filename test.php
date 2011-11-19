@@ -30,13 +30,12 @@ $baseObject = new stdClass();
 $baseObject->jsonrpc = "2.0";
 $baseObject->id = 1;
 
-# Compose introspect string {"jsonrpc": "2.0", "method": "JSONRPC.Introspect", "id": 1}
+# Compose introspect object {"jsonrpc": "2.0", "method": "JSONRPC.Introspect", "id": 1}
 $introspectObject = clone $baseObject;
 $introspectObject->method = "JSONRPC.Introspect";
-$introspectString = json_encode($introspectObject);
 
 # Compose outbound data string
-$in = $introspectString;
+$in = json_encode($introspectObject);
 
 # Initialise output buffer
 $out = '';
