@@ -1,18 +1,13 @@
 #!/usr/bin/php
 <?php
 
-# Includes
-require_once('Methods/MethodsJSONRPC.class.php');
-require_once('Connections/BoxeeBoxJSONRPC.class.php');
+# Include BoxeeBoxPHPJSONRPC class
+require_once('BoxeeBoxPHPJSONRPC.class.php');
 
-# Create JSON RPC Methods Object
-$JSONRPC = new MethodsJSONRPC();
+# Connect to BoxeeBox
+$bb = new BoxeeBoxPHPJSONRPC('boxeebox');
 
-var_dump($JSONRPC->Ping());
-
-$bb = new BoxeeBoxJSONRPC();
-$bb->connect(gethostbyname('boxeebox'));
-var_dump($bb->send($JSONRPC->Ping()));
-
+# Issue API Query
+echo $bb->JSONRPC('Version', 'Version');
 
 ?>

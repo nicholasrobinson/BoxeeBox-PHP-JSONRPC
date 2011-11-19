@@ -1,6 +1,6 @@
 <?php
 /*
- *	File:			MethodsBaseClass.class.php
+ *	File:			BaseClass.class.php
  *	Description:	Abstract Base Class for Methods Classes
  *	Author:			Nicholas Robinson 11/19/2011
  */
@@ -12,7 +12,7 @@ define('MESSAGE_ID', 1);
 /** 
 * Abstract Base Class for Methods Classes
 */
-abstract class MethodsBaseClass
+abstract class BaseClass
 {
 	# Properties
 	public $jsonrpc = JSONRPC_VERSION;

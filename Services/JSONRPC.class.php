@@ -1,17 +1,17 @@
 <?php
 /*
- *	File:			MethodsJSONRPC.class.php
+ *	File:			JSONRPC.class.php
  *	Description:	Generate json encoded strings for JSONRPC methods
  *	Author:			Nicholas Robinson 11/19/2011
  */
 
 # Includes
-require_once('Methods/MethodsBaseClass.class.php');
+require_once('Services/BaseClass.class.php');
 
 /** 
 * Generate json encoded strings for JSONRPC methods
 */
-class MethodsJSONRPC extends MethodsBaseClass
+class JSONRPC extends BaseClass
 {
 	# Properties
 	public $method;

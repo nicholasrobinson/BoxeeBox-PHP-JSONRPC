@@ -1,7 +1,7 @@
 <?php
 /*
- *	File:			BoxeeBoxJSONRPC.class.php
- *	Description:	Handle BoxeeBox JSONRPC communication via a TCP Socket
+ *	File:			TCPJSONRPC.class.php
+ *	Description:	Handle JSONRPC communication via a TCP Socket
  *	Author:			Nicholas Robinson 11/19/2011
  */
 
@@ -10,9 +10,9 @@ define('JSONRPC_PORT', '9090');
 define('READ_LENGTH', 2048);
 
 /** 
-* Handle BoxeeBox JSONRPC communication via a TCP Socket
+* Handle JSONRPC communication via a TCP Socket
 */
-class BoxeeBoxJSONRPC
+class TCPJSONRPC
 {
 	# Properties
 	private $socket;
