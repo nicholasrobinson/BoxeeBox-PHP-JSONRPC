@@ -1,7 +1,7 @@
 <?php
 /*
  *	File:			MethodsBaseClass.class.php
- *	Description:	Class definition for Methods Base Class
+ *	Description:	Abstract Base Class for Methods Classes
  *	Author:			Nicholas Robinson 11/19/2011
  */
 
@@ -10,9 +10,9 @@ define('JSONRPC_VERSION', '2.0');
 define('MESSAGE_ID', 1);
 
 /** 
-* Base class for BoxeeBox JSONRPC Remote Control Methods
+* Abstract Base Class for Methods Classes
 */
-class MethodsBaseClass
+abstract class MethodsBaseClass
 {
 	# Properties
 	public $jsonrpc = JSONRPC_VERSION;

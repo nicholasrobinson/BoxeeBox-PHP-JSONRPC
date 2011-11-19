@@ -1,7 +1,7 @@
 <?php
 /*
  *	File:			MethodsJSONRPC.class.php
- *	Description:	Class definition for Methods JSONRPC Class
+ *	Description:	Generate json encoded strings for JSONRPC methods
  *	Author:			Nicholas Robinson 11/19/2011
  */
 
@@ -9,7 +9,7 @@
 require_once('Methods/MethodsBaseClass.class.php');
 
 /** 
-* JSONRPC class for BoxeeBox JSONRPC Remote Control Methods
+* Generate json encoded strings for JSONRPC methods
 */
 class MethodsJSONRPC extends MethodsBaseClass
 {
