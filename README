@@ -1,0 +1,6 @@
+BoxeeBox PHP JSONRPC SDK by Nicholas Robinson
+
+This project is initially intended as a scratchpad to play with PHP and the BoxeeBox JSONRPC API, but hopefully will evolve into a re-usable SDK.
+
+References:
+http://developer.boxee.tv/JSON_RPC
