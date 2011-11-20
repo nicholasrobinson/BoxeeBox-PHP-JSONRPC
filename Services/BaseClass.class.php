@@ -1,7 +1,7 @@
 <?php
 /*
  *	File:			BaseClass.class.php
- *	Description:	Abstract Base Class for Methods Classes
+ *	Description:	Abstract Base Class for Services Classes
  *	Author:			Nicholas Robinson 11/19/2011
  */
 
@@ -10,7 +10,7 @@ define('JSONRPC_VERSION', '2.0');
 define('MESSAGE_ID', 1);
 
 /** 
-* Abstract Base Class for Methods Classes
+* Abstract Base Class for Services Classes
 */
 abstract class BaseClass
 {

@@ -6,7 +6,7 @@
  */
 
 # Constants
-define('DEBUG', true);
+define('DEBUG', false);
 
 # Includes
 define('ROOT', dirname(__FILE__));
