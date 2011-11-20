@@ -1,6 +1,6 @@
 BoxeeBox PHP JSONRPC SDK by Nicholas Robinson
 
-This project houses a fully functional and re-usable PHP SDK for the BoxeeBox JSONRPC API. Several examples are included as suggestions for possible uses and help get you started. My hope is that given the prevalence of PHP and the ease of access to web server technologies this SDK will increase and diversify the number of devices that can interact with the BoxeeBox. 
+This project houses a fully functional and re-usable PHP SDK for the BoxeeBox JSONRPC API. Several examples are included as suggestions for possible uses and to help get you started. My hope is that given the prevalence of PHP and the ease of access to web server technologies this SDK will increase and diversify the number of devices that can interact with the BoxeeBox. 
 
 Requirements:
 - PHP 5.2+
@@ -8,20 +8,20 @@ Requirements:
 
 Installation:
 - Download/Clone project folder
-- Place in your web root
+- Place in your web root (optional)
 - Run the the example scripts (found in the "Examples/" folder) in your web browser or from the command line
-- Make sure to utilise Examples/browser.php to get familiar with the API
+- Make sure to utilize Examples/browser.php to get familiar with the API
 
 Please Note: 
 
-For simplicity of cross-platform implementation and compatibility there is no attempt to handle state within the SDK. As a result connection state must be handled by your implementation (examples are included with the SDK). Furthermore Boxee API push Notifications are not readily available.
+For simplicity of cross-platform implementation/compatibility there is no attempt to handle state within the SDK. As a result connection state must be handled by your implementation (examples are included with the SDK). Furthermore Boxee API push Notifications are not readily available.
 
 To maintain connection state there are many options, including:
 - Browser Cookies
 - PHP Sessions
 - Local Storage
 - Databases
-- Forms (as shown in Examples/complex.php)
+- HTML Form submission [POST/GET] (as shown in Examples/complex.php)
 - Javascript (as shown in Examples/browser.php)
 
 Please let me know if you find this useful or come up with any novel implementations.
