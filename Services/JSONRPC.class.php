@@ -24,7 +24,7 @@ class JSONRPC extends BaseClass
 	*/
 	public function Introspect()
 	{
-		$this->method = "JSONRPC.Introspect";
+		$this->method = get_class($this) . '.' . __FUNCTION__;
 		return self::stringify($this);
 	}
 	
@@ -36,7 +36,7 @@ class JSONRPC extends BaseClass
 	*/
 	public function Version()
 	{
-		$this->method = "JSONRPC.Version";
+		$this->method = get_class($this) . '.' . __FUNCTION__;
 		return self::stringify($this);
 	}
 	
@@ -47,7 +47,7 @@ class JSONRPC extends BaseClass
 	*/
 	public function Permission()
 	{
-		$this->method = "JSONRPC.Permission";
+		$this->method = get_class($this) . '.' . __FUNCTION__;
 		return self::stringify($this);
 	}
 	
@@ -58,7 +58,7 @@ class JSONRPC extends BaseClass
 	*/
 	public function Ping()
 	{
-		$this->method = "JSONRPC.Ping";
+		$this->method = get_class($this) . '.' . __FUNCTION__;
 		return self::stringify($this);
 	}
 }

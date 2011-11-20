@@ -101,7 +101,7 @@ foreach ($services_filenames as $services_filename)
 	# Extract class name from filename
 	$class_name = str_replace('.class.php', '', str_replace('../Services/', '', $services_filename));
 	# Ignore Base Class
-	if ($class_name != 'BaseClass')
+	if (strpos($class_name, 'Base') === false)
 	{
 		# Create reflection class
 		$reflection_class = new ReflectionClass($class_name);
@@ -248,7 +248,7 @@ foreach ($services_filenames as $services_filename)
 					else
 						$('<em>This method takes no parameters</em>').appendTo("#parameters");
 					$('<strong>);</strong><br />').appendTo("#prototype");
-					//$('<em>returns ' + services[service]['methods'][method]['return_description'] + '</em>').appendTo("#prototype"); 
+					$('<em>returns ' + services[service]['methods'][method]['return_description'] + '</em>').appendTo("#prototype"); 
 					$(".execute").show();
 					$(".parameters").show();
 				});
@@ -331,7 +331,7 @@ foreach ($services_filenames as $services_filename)
 				}
 				jsonPayload = jsonPayload + ']'; 
 				// Output Query
-				var query = '{"jsonrpc": "2.0", "method": ' + service + '.' + method + ', "params": {' + parameterList + '}, "id": 1}';
+				var query = '{"jsonrpc": "2.0", "method": "' + service + '.' + method + '", "params": {' + parameterList + '}, "id": 1}';
 				$('<p>Sent:<br /><span class="query">' + query + '</p><hr class="results" />').prependTo("#results");
 				// POST to API with JSON encoded query object
 				$.ajax({
@@ -493,12 +493,11 @@ foreach ($services_filenames as $services_filename)
 				<tr>
 					<th width="100">Hostname: </th>
 					<td width="500"><input name="hostname" class="hostname" id="hostname" value="boxeebox" /></td>
-					<td>&nbsp;</td>
+					<td rowspan="3" id="prototype"></td>
 				</tr>
 				<tr class="service">
 					<th width="100">Service: </th>
 					<td width="500"><select name="service" class="parameter" id="service"></select></td>
-					<td rowspan="2" id="prototype"></td>
 				</tr>
 				<tr class="method">
 					<th>Method: </th>

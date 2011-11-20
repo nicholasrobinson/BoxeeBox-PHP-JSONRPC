@@ -33,7 +33,7 @@ class Device extends BaseClass
 	*/
 	public function PairChallenge($deviceid, $applicationid, $label, $icon, $type)
 	{
-		$this->method = "Device.PairChallenge";
+		$this->method = get_class($this) . '.' . __FUNCTION__;
 		$this->params = new stdClass();
 		$this->params->deviceid = $deviceid;
 		$this->params->applicationid = $applicationid;
@@ -54,7 +54,7 @@ class Device extends BaseClass
 	*/
 	public function PairResponse($deviceid, $code)
 	{
-		$this->method = "Device.PairResponse";
+		$this->method = get_class($this) . '.' . __FUNCTION__;
 		$this->params = new stdClass();
 		$this->params->deviceid = $deviceid;
 		$this->params->code = $code;
@@ -70,7 +70,7 @@ class Device extends BaseClass
 	*/
 	public function Unpair($deviceid)
 	{
-		$this->method = "Device.Unpair";
+		$this->method = get_class($this) . '.' . __FUNCTION__;
 		$this->params = new stdClass();
 		$this->params->deviceid = $deviceid;
 		return self::stringify($this);
@@ -86,7 +86,7 @@ class Device extends BaseClass
 	*/
 	public function Connect($deviceid)
 	{
-		$this->method = "Device.Connect";
+		$this->method = get_class($this) . '.' . __FUNCTION__;
 		$this->params = new stdClass();
 		$this->params->deviceid = $deviceid;
 		return self::stringify($this);
