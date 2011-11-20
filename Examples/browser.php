@@ -319,8 +319,8 @@ foreach ($services_filenames as $services_filename)
 					parameterValue = $("[name=" + parameter + "]").val();
 					parameterList.push('"' + parameter + '": ');
 					parameters.push(parameterValue);
-					// Retain deviceid for future use
-					if (parameter == 'deviceid')
+					// Retain Connect deviceid for future use
+					if (service == 'Device' && method == 'Connect' && parameter == 'deviceid')
 					{
 						window.deviceid = parameterValue;
 					}
