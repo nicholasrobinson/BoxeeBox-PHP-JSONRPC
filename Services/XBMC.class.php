@@ -65,24 +65,31 @@ class XBMC extends BaseClass
 	*
 	* @return string
 	*/
-	public function Play()
+	public function Play($file, $contenttype)
 	{
 		$this->method = get_class($this) . '.' . __FUNCTION__;
+		$this->params = new stdClass();
+		$this->params->file = $file;
+		$this->params->contenttype = $contenttype;
 		return self::stringify($this);
 	}
 	
 	/** 
 	* Starts slideshow
 	*
-	* @param		directory		 string		 directory to show pictures from
-	* random		boolean			 True if show in random order (optional, default is True)
-	* recursive		boolean			 True if include pictures from subdirectories  (optional, default is True)
+	* @param	directory		 string		 directory to show pictures from
+	* @param	random			 boolean	 True if show in random order (optional, default is True)
+	* @param	recursive		 boolean	 True if include pictures from subdirectories  (optional, default is True)
 	*
 	* @return string
 	*/
-	public function StartSlideshow()
+	public function StartSlideshow($directory, $random, $recursive)
 	{
 		$this->method = get_class($this) . '.' . __FUNCTION__;
+		$this->params = new stdClass();
+		$this->params->directory = $directory;
+		$this->params->random = $random;
+		$this->params->recursive = $recursive;
 		return self::stringify($this);
 	}
 	
@@ -91,7 +98,7 @@ class XBMC extends BaseClass
 	*
 	* @return string
 	*/
-	public function Quit($booleans)
+	public function Quit()
 	{
 		$this->method = get_class($this) . '.' . __FUNCTION__;
 		return self::stringify($this);

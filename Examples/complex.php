@@ -34,12 +34,13 @@ elseif (isset($_REQUEST['action']) && $_REQUEST['action'] == 'register')
 	$label				= isset($_REQUEST['label']) ? $_REQUEST['label'] : '';
 	$icon				= isset($_REQUEST['icon']) ? $_REQUEST['icon'] : '';
 	$type				= isset($_REQUEST['type']) ? $_REQUEST['type'] : '';
-	$response			= $bb->Device('Connect', $deviceid, $applicationid, $label, $icon, $type);
+	$response			= $bb->Device('PairChallenge', $deviceid, $applicationid, $label, $icon, $type);
 	$responseObject		= json_decode($response);
 }
 
-# If not connected
-if (!isset($_REQUEST['deviceid']) || isset($responseObject) && is_object($responseObject) && isset($responseObject->error))
+# If not connected or an error has occured
+if (!(isset($_REQUEST['action']) && $_REQUEST['action'] == 'restore') ||
+	isset($responseObject) && is_object($responseObject) && isset($responseObject->error))
 {
 ?>
 <html>
@@ -65,7 +66,7 @@ if (!isset($_REQUEST['deviceid']) || isset($responseObject) && is_object($respon
 		<p><strong>2. Complete a New Device Pairing</strong></p>
 		<form method="POST" action="complex.php?action=pair">
 			<input type="text" name="deviceid" value="<?php echo (isset($_REQUEST['deviceid']) && isset($_REQUEST['action']) && $_REQUEST['action'] == 'register') ? $_REQUEST['deviceid'] : ''; ?>" />deviceid<br />
-			<input type="text" name="code" />type<br />
+			<input type="text" name="code" />code<br />
 			<input type="submit" />
 		</form>
 		<p>or</p>
