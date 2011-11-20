@@ -19,9 +19,15 @@ if (isset($_REQUEST['hostname']) && isset($_REQUEST['service']) && isset($_REQUE
 	$response = array();
 	$response['success'] = false;
 
-	# Normalize service
+	# Normalize hostname
 	if (isset($_REQUEST['hostname']))
 		$payload['hostname']		= $_REQUEST['hostname'];
+	# Normalize deviceid
+	if (isset($_REQUEST['deviceid']))
+		$payload['deviceid']		= $_REQUEST['deviceid'];
+	else
+		$payload['deviceid']		= '';
+	# Normalize service
 	if (isset($_REQUEST['service']))
 		$payload['service']		= $_REQUEST['service'];
 	# Normalize method
@@ -62,6 +68,11 @@ if (isset($_REQUEST['hostname']) && isset($_REQUEST['service']) && isset($_REQUE
 			{
 				# Connect to BoxeeBox
 				$bb = new BoxeeBoxPHPJSONRPC($payload['hostname']);
+				# Restore pre-existing sessions
+				if ($payload['deviceid'] != 'null')
+				{
+					$bb->Device('Connect', $payload['deviceid']);
+				}
 				# Issue JSONRPC.Ping Query
 				array_unshift($payload['parameters'], $payload['method']);
 				$output = call_user_func_array(array($bb, $payload['service']), $payload['parameters']);
@@ -302,11 +313,17 @@ foreach ($services_filenames as $services_filename)
 				var parameters = new Array();
 				var parameterList = new Array();
 				var parameterValue = '';
+				// Extract form parameter values
 				for (var parameter in services[service]['methods'][method]['parameters'])
 				{
 					parameterValue = $("[name=" + parameter + "]").val();
 					parameterList.push('"' + parameter + '": ');
 					parameters.push(parameterValue);
+					// Retain deviceid for future use
+					if (parameter == 'deviceid')
+					{
+						window.deviceid = parameterValue;
+					}
 				}
 				// Create JSON encoded parameters payload
 				var jsonPayload = '[';
@@ -341,7 +358,8 @@ foreach ($services_filenames as $services_filename)
 							'hostname' : hostname,
 							'service' : service,
 							'method' : method,
-							'parameters' : jsonPayload
+							'parameters' : jsonPayload,
+							'deviceid' : (typeof window.deviceid != 'undefined' ? window.deviceid : '')
 							},
 					success: 
 						function(result) 
