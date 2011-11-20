@@ -9,38 +9,51 @@
 require_once('../BoxeeBoxPHPJSONRPC.class.php');
 
 # Connect to BoxeeBox
-$bb = new BoxeeBoxPHPJSONRPC('boxeebox');
+try
+{
+	$bb = new BoxeeBoxPHPJSONRPC(isset($_REQUEST['hostname']) ? $_REQUEST['hostname'] : '');
+}
+# Catch exceptions
+catch (Exception $error)
+{
+	$bb = null;
+}
 
-# Handle connection restoration
-if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'restore')
+# If connection succesful
+if ($bb != null)
 {
-	$deviceid			= isset($_REQUEST['deviceid']) ? $_REQUEST['deviceid'] : '';
-	$response			= $bb->Device('Connect', $deviceid);
-	$responseObject		= json_decode($response);
-}
-# Handle pairing confirmation
-elseif (isset($_REQUEST['action']) && $_REQUEST['action'] == 'pair')
-{
-	$deviceid			= isset($_REQUEST['deviceid']) ? $_REQUEST['deviceid'] : '';
-	$code				= isset($_REQUEST['code']) ? $_REQUEST['code'] : '';
-	$response			= $bb->Device('PairResponse', $deviceid, $code);
-	$responseObject		= json_decode($response);
-}
-# Handle inital registration
-elseif (isset($_REQUEST['action']) && $_REQUEST['action'] == 'register')
-{
-	$deviceid			= isset($_REQUEST['deviceid']) ? $_REQUEST['deviceid'] : '';
-	$applicationid		= isset($_REQUEST['applicationid']) ? $_REQUEST['applicationid'] : '';
-	$label				= isset($_REQUEST['label']) ? $_REQUEST['label'] : '';
-	$icon				= isset($_REQUEST['icon']) ? $_REQUEST['icon'] : '';
-	$type				= isset($_REQUEST['type']) ? $_REQUEST['type'] : '';
-	$response			= $bb->Device('PairChallenge', $deviceid, $applicationid, $label, $icon, $type);
-	$responseObject		= json_decode($response);
+	# Handle connection restoration
+	if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'restore')
+	{
+		$deviceid			= isset($_REQUEST['deviceid']) ? $_REQUEST['deviceid'] : '';
+		$response			= $bb->Device('Connect', $deviceid);
+		$responseObject		= json_decode($response);
+	}
+	# Handle pairing confirmation
+	elseif (isset($_REQUEST['action']) && $_REQUEST['action'] == 'pair')
+	{
+		$deviceid			= isset($_REQUEST['deviceid']) ? $_REQUEST['deviceid'] : '';
+		$code				= isset($_REQUEST['code']) ? $_REQUEST['code'] : '';
+		$response			= $bb->Device('PairResponse', $deviceid, $code);
+		$responseObject		= json_decode($response);
+	}
+	# Handle inital registration
+	elseif (isset($_REQUEST['action']) && $_REQUEST['action'] == 'register')
+	{
+		$deviceid			= isset($_REQUEST['deviceid']) ? $_REQUEST['deviceid'] : '';
+		$applicationid		= isset($_REQUEST['applicationid']) ? $_REQUEST['applicationid'] : '';
+		$label				= isset($_REQUEST['label']) ? $_REQUEST['label'] : '';
+		$icon				= isset($_REQUEST['icon']) ? $_REQUEST['icon'] : '';
+		$type				= isset($_REQUEST['type']) ? $_REQUEST['type'] : '';
+		$response			= $bb->Device('PairChallenge', $deviceid, $applicationid, $label, $icon, $type);
+		$responseObject		= json_decode($response);
+	}
 }
 
 # If not connected or an error has occured
 if (!(isset($_REQUEST['action']) && $_REQUEST['action'] == 'restore') ||
-	isset($responseObject) && is_object($responseObject) && isset($responseObject->error))
+	(isset($responseObject) && is_object($responseObject) && isset($responseObject->error)) ||
+	$bb == null)
 {
 ?>
 <html>
@@ -48,7 +61,8 @@ if (!(isset($_REQUEST['action']) && $_REQUEST['action'] == 'restore') ||
 		<h1>You are Not Connected</h2>
 		<p><strong>1. Pair a New Device</strong></p>
 		<form method="POST" action="complex.php?action=register">
-			<input type="text" name="deviceid" />deviceid<br />
+			<input type="text" name="hostname" value="<?php echo isset($_REQUEST['hostname']) ? $_REQUEST['hostname'] : ''; ?>" />hostname<br />
+			<input type="text" name="deviceid" value="<?php echo isset($_REQUEST['deviceid']) ? $_REQUEST['deviceid'] : ''; ?>" />deviceid<br />
 			<input type="text" name="applicationid" />applicationid<br />
 			<input type="text" name="label" />label<br />
 			<input type="text" name="icon" />icon<br />
@@ -65,19 +79,21 @@ if (!(isset($_REQUEST['action']) && $_REQUEST['action'] == 'restore') ||
 		<p>or</p>
 		<p><strong>2. Complete a New Device Pairing</strong></p>
 		<form method="POST" action="complex.php?action=pair">
-			<input type="text" name="deviceid" value="<?php echo (isset($_REQUEST['deviceid']) && isset($_REQUEST['action']) && $_REQUEST['action'] == 'register') ? $_REQUEST['deviceid'] : ''; ?>" />deviceid<br />
+			<input type="text" name="hostname" value="<?php echo isset($_REQUEST['hostname']) ? $_REQUEST['hostname'] : ''; ?>" />hostname<br />
+			<input type="text" name="deviceid" value="<?php echo isset($_REQUEST['deviceid']) ? $_REQUEST['deviceid'] : ''; ?>" />deviceid<br />
 			<input type="text" name="code" />code<br />
 			<input type="submit" />
 		</form>
 		<p>or</p>
 		<p><strong>3. Use a Paired Device</strong></p>
 		<form method="POST" action="complex.php?action=restore">
-			<input type="text" name="deviceid" value="<?php echo (isset($_REQUEST['deviceid']) && isset($_REQUEST['action']) && $_REQUEST['action'] == 'pair') ? $_REQUEST['deviceid'] : ''; ?>" />deviceid<br />
+			<input type="text" name="hostname" value="<?php echo isset($_REQUEST['hostname']) ? $_REQUEST['hostname'] : ''; ?>" />hostname<br />
+			<input type="text" name="deviceid" value="<?php echo isset($_REQUEST['deviceid']) ? $_REQUEST['deviceid'] : ''; ?>" />deviceid<br />
 			<input type="submit" />
 		</form>
 <?php
 }
-# If connected, issue Input.NavigationState Query
+# If connected
 else
 {
 ?>
@@ -92,8 +108,13 @@ else
 			<input type="submit" name="method" value="Down" />
 			<input type="submit" name="method" value="Left" />
 			<input type="submit" name="method" value="Right" />
-			<input type="submit" name="method" value="Unpair" />
 			<input type="hidden" name="deviceid" value="<?php echo $_REQUEST['deviceid']; ?>" />
+			<input type="hidden" name="hostname" value="<?php echo $_REQUEST['hostname']; ?>" />
+		</form>
+		<form method="POST" action="complex.php?action=restore">
+			<input type="submit" name="method" value="Unpair" />
+			<input type="text" name="deviceid" value="<?php echo $_REQUEST['deviceid']; ?>" />
+			<input type="hidden" name="hostname" value="<?php echo $_REQUEST['hostname']; ?>" />
 		</form>
 <?php
 	# Handle NavigationState method
@@ -130,7 +151,7 @@ else
 	# Handle Back method
 	elseif (!isset($_REQUEST['method']) || $_REQUEST['method'] == 'Down')
 	{
-		$response			= $bb->Input('DOwn');
+		$response			= $bb->Input('Down');
 	}
 	# Handle Back method
 	elseif (!isset($_REQUEST['method']) || $_REQUEST['method'] == 'Left')
@@ -155,6 +176,14 @@ if (isset($response))
 ?>
 		<h1>Received Data</h1>
 		<p><?php echo $response; ?></p>
+<?php
+}
+# Otherwise inform of communication failures
+elseif ($bb == null && isset($_REQUEST['action']))
+{
+?>
+		<h1>Received Data</h1>
+		<p>COMMUNICATION FAILURE</p>
 <?php
 }
 ?>
