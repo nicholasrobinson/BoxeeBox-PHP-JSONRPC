@@ -1,5 +1,10 @@
 <?php
-
+/*
+ *  File:			simple.php
+ *  Description:	Simple SDK web/command line example
+ *  Author:			Nicholas Robinson 11/19/2011
+ */
+ 
 # Include BoxeeBoxPHPJSONRPC class
 require_once('../BoxeeBoxPHPJSONRPC.class.php');
 

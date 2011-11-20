@@ -1,6 +1,11 @@
 #!/usr/bin/php
 <?php
-
+/*
+ *  File:			commandline.php
+ *  Description:	SDK commandline example
+ *  Author:			Nicholas Robinson 11/19/2011
+ */
+ 
 # Parse command line arguments
 $args = getopt('h:s:m:');
 if (!isset($args['h']) || !isset($args['s']) || !isset($args['m']))
