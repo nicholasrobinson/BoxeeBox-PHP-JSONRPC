@@ -22,7 +22,7 @@ class GUI extends BaseClass
 	* If a text field / edit control is currently focused in the Boxee user interface, set it's value. 
 	* It allows to use a "remote" keyboard to enter text.
 	*
-	* @param	text		string		string text to set
+	* @param	text		 string		 string text to set
 	*
 	* @return string
 	*/
@@ -52,7 +52,7 @@ class GUI extends BaseClass
 	/** 
 	* Show notification dialog for 5 seconds.
 	*
-	* @param		msg			string		message to display in the notification dialog
+	* @param		 msg			 string		 message to display in the notification dialog
 	*
 	* @return string
 	*/

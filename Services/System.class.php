@@ -65,7 +65,7 @@ class System extends BaseClass
 	/** 
 	* Get info labels about the system
 	*
-	* @param	labels		array	of string	<field name>s to return information for
+	* @param	labels		 array	 of string	 <field name>s to return information for
 	*
 	* @return
 	* array		 of object field name boolean value of that field
@@ -86,7 +86,7 @@ class System extends BaseClass
 	* Example result: 
 	* [ { 'system.canshutdown' : true }, { 'system.cansuspend' : true }]
 	*
-	* @param	 booleans	array	of string	field names to return information for
+	* @param	 booleans	 array	 of string	 field names to return information for
 	*
 	* @return
 	* array		 of object field name boolean value of that field

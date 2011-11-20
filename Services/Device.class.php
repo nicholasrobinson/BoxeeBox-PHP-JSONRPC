@@ -23,11 +23,11 @@ class Device extends BaseClass
 	* Boxee displays a dialog box with a PIN that the user should type on the device and send to Boxee with 
 	* Device.PairResponse
 	*
-	* @param	deviceid		string     identifier for the device (h/w address, MAC address, serial number, etc)
-	* @param	applicationid	string     identifier for the caller application
-	* @param	label			string     name of the caller application (displayed in the Boxee user interface)
-	* @param	icon			string     URL for the called application thumbnail (displayed in the Boxee user interface)
-	* @param	type			string     One of the following values: "tablet", "phone", "remote", "other
+	* @param	 deviceid		 string		 identifier for the device (h/w address, MAC address, serial number, etc)
+	* @param	 applicationid	 string		 identifier for the caller application
+	* @param	 label			 string		 name of the caller application (displayed in the Boxee user interface)
+	* @param	 icon			 string		 URL for the called application thumbnail (displayed in the Boxee user interface)
+	* @param	 type			 string		 One of the following values: "tablet", "phone", "remote", "other
 	*
 	* @return string
 	*/
@@ -47,8 +47,8 @@ class Device extends BaseClass
 	* In response to Device.PairChallenge, Boxee displays a dialog box with a PIN that the user should type on the 
 	* device and send to Boxee using this method.
 	*
-	* @param	deviceid		string		identifier for the device (h/w address, MAC address, serial number, etc)
-	* @param	code			string		code entered by the user on the client device
+	* @param	 deviceid		 string		 identifier for the device (h/w address, MAC address, serial number, etc)
+	* @param	 code			 string		 code entered by the user on the client device
 	*
 	* @return string
 	*/
@@ -64,7 +64,7 @@ class Device extends BaseClass
 	/** 
 	* Unpair a paired device.
 	*
-	* @param	deviceid		string		identifier for the device (h/w address, MAC address, serial number, etc)
+	* @param	deviceid		 string		 identifier for the device (h/w address, MAC address, serial number, etc)
 	*
 	* @return string
 	*/
@@ -80,7 +80,7 @@ class Device extends BaseClass
 	* The client should call this method when (after pairing once) to authenticate itself with Boxee. 
 	* If the device is paired, the client can continue and make additional calls to Boxee.
 	*
-	* @param	deviceid		string		identifier for the device (h/w address, MAC address, serial number, etc)
+	* @param	deviceid		 string		 identifier for the device (h/w address, MAC address, serial number, etc)
 	*
 	* @return string
 	*/

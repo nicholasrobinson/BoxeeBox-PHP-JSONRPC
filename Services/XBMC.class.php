@@ -33,7 +33,7 @@ class XBMC extends BaseClass
 	/** 
 	* Sets the current volume as an int percent
 	*
-	* @param	value	number volume to set to
+	* @param	value	 number volume to set to
 	*
 	* @return string
 	*/
@@ -60,8 +60,8 @@ class XBMC extends BaseClass
 	/** 
 	* Starts playback of a file / URL
 	*
-	* @param	file			string File name or URL to play
-	* @param	contenttype		string Content type (i.e. video/mp4 or text/html) (optional)
+	* @param	file			 string	 File name or URL to play
+	* @param	contenttype		 string	 Content type (i.e. video/mp4 or text/html) (optional)
 	*
 	* @return string
 	*/
@@ -74,9 +74,9 @@ class XBMC extends BaseClass
 	/** 
 	* Starts slideshow
 	*
-	* @param		directory		string		directory to show pictures from
-	* random		boolean			True if show in random order (optional, default is True)
-	* recursive		boolean			True if include pictures from subdirectories  (optional, default is True)
+	* @param		directory		 string		 directory to show pictures from
+	* random		boolean			 True if show in random order (optional, default is True)
+	* recursive		boolean			 True if include pictures from subdirectories  (optional, default is True)
 	*
 	* @return string
 	*/

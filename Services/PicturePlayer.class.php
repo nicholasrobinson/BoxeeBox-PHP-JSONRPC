@@ -22,8 +22,8 @@ class PicturePlayer extends BaseClass
 	* Pauses or unpauses slideshow.
 	*
 	* @return
-	* playing		 boolean	 True if audio is currently playing; 
-	* paused		 boolean	 True if audio is currently paused; 
+	* playing		 boolean	  True if audio is currently playing; 
+	* paused		 boolean	  True if audio is currently paused; 
 	*/
 	public function PlayPause()
 	{
@@ -123,7 +123,7 @@ class PicturePlayer extends BaseClass
 	/** 
 	* Zooms the viewport in.
 	*
-	* @param	value	Position to seek to
+	* @param	value	 Position to seek to
 	*
 	* @return string
 	*/
@@ -136,7 +136,7 @@ class PicturePlayer extends BaseClass
 	/** 
 	* Zoom to a defined level
 	*
-	* @param	number     Zoom level to seek to, as a whole number between 1-10
+	* @param	number      Zoom level to seek to, as a whole number between 1-10
 	*
 	* @return string
 	*/
@@ -150,7 +150,6 @@ class PicturePlayer extends BaseClass
 	
 	/** 
 	* Rotate the current picture (clockwise or anticlockwise?)
-	*
 	*
 	* @return string
 	*/

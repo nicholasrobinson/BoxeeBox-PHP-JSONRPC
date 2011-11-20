@@ -22,8 +22,8 @@ class Input extends BaseClass
 	* Returns the current navigation state, whether a mouse or keys navigation is enabled.
 	*
 	* @return
-	* keys-enabled	 boolean	 True if the navigation keys are enabled (currently always True)
-	* mouse-enabled	 boolean	 True if the mouse is  enabled
+	* keys-enabled	  boolean	  True if the navigation keys are enabled (currently always True)
+	* mouse-enabled	  boolean	  True if the mouse is  enabled
 	*/
 	public function NavigationState()
 	{
@@ -100,8 +100,8 @@ class Input extends BaseClass
 	/** 
 	* Sends a mouse movement event
 	*
-	* @param	deltax		number		Delta on the X axis
-	* @param	deltay		number		Delta on the Y axis
+	* @param	deltax		 number		 Delta on the X axis
+	* @param	deltay		 number		 Delta on the Y axis
 	* @return string
 	*
 	*/

@@ -21,7 +21,7 @@ abstract class BaseClass
 	/** 
 	* Flatten object into JSON encoded string
 	*
-	* @param  $object	Object for stringification
+	* @param  $object	 Object for stringification
 	*
 	* @return string
 	*/
