@@ -2,7 +2,7 @@ BoxeeBox PHP JSONRPC SDK by Nicholas Robinson
 
 This project houses a fully functional and re-usable PHP SDK for the BoxeeBox JSONRPC API. Several examples are included as suggestions for possible uses and to help get you started. My hope is that given the prevalence of PHP and the ease of access to web server technologies this SDK will increase and diversify the number of devices that can interact with the BoxeeBox. 
 
-To see it in action go here:
+To see it in action go here (sockets are disabled for safety):
 http://www.nicholassavilerobinson.com/BoxeeBox-PHP-JSONRPC/Examples/browser.php
 
 Requirements:
