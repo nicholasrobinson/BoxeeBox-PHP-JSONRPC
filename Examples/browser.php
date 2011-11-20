@@ -69,7 +69,7 @@ if (isset($_REQUEST['hostname']) && isset($_REQUEST['service']) && isset($_REQUE
 			# Catch exceptions
 			catch (Exception $error)
 			{
-				$output = 'CONNECTION FAILURE';
+				$output = 'CONNECTION ERROR';
 			}
 		}
 	}
@@ -300,9 +300,13 @@ foreach ($services_filenames as $services_filename)
 				var service = $("#service").val();
 				var method = $("#method").val();
 				var parameters = new Array();
+				var parameterList = new Array();
+				var parameterValue = '';
 				for (var parameter in services[service]['methods'][method]['parameters'])
 				{
-					parameters.push($("[name=" + parameter + "]").val());
+					parameterValue = $("[name=" + parameter + "]").val();
+					parameterList.push('"' + parameter + '": ');
+					parameters.push(parameterValue);
 				}
 				// Create JSON encoded parameters payload
 				var jsonPayload = '[';
@@ -314,15 +318,21 @@ foreach ($services_filenames as $services_filename)
 					if (	(parameter[0] == '"' && parameter[parameter.length - 1] == '"')
 						||	(parameter[0] == '{') || (parameter[0] == '[')
 						||	((parameter - 0) == parameter && parameter.length > 0)	)
+					{
+						parameterList[i] += parameter;
 						jsonPayload = jsonPayload + parameter + ((i < parameters.length - 1) ? ',' : '');
+					}
 					// Otherwise treat as a string
 					else
+					{
+						parameterList[i] += '"' + parameter + '"';
 						jsonPayload = jsonPayload + '"' + parameter + '"' + ((i < parameters.length - 1) ? ',' : '');
+					}
 				}
 				jsonPayload = jsonPayload + ']'; 
 				// Output Query
-				var query = 'Executing ' + service + '.' + method + '(' + parameters.join(', ') + ')';
-				$('<p class="query">' + query + '</p><hr class="results" />').prependTo("#results");
+				var query = '{"jsonrpc": "2.0", "method": ' + service + '.' + method + ', "params": {' + parameterList + '}, "id": 1}';
+				$('<p>Sent:<br /><span class="query">' + query + '</p><hr class="results" />').prependTo("#results");
 				// POST to API with JSON encoded query object
 				$.ajax({
 					type: 'POST',
@@ -337,7 +347,7 @@ foreach ($services_filenames as $services_filename)
 						function(result) 
 						{
 							// Output result
-							$('<p class="result">' + jsonReadable(result) + '</p>').prependTo("#results");
+							$('<p>Received:<br /><span class="' + (result.match(/error/i) ? 'error' : 'result') + '">' + jsonReadable(result) + '</p>').prependTo("#results");
 						},
 					dataType: 'text'
 				});
@@ -379,7 +389,7 @@ foreach ($services_filenames as $services_filename)
 								break; 
 							case '{': 
 								tabcount = tabcount + 1;
-								result = result + newline + new Array(tabcount - 1).join(tab) + char + newline + new Array(tabcount).join(tab); 
+								result = result + (i > 0 ? newline : '') + new Array(tabcount - 1).join(tab) + char + newline + new Array(tabcount).join(tab); 
 								break; 
 							case '}': 
 								tabcount = tabcount - 1; 
@@ -433,10 +443,13 @@ foreach ($services_filenames as $services_filename)
 				padding-right:5px;
 			}
 			.query {
-				color:#000;
+				color:#00f;
 			}
 			.result {
-				color:#00611c;
+				color:#0c8;
+			}
+			.error {
+				color:#f00;
 			}
 			hr.results {
 				border:1px dashed;
@@ -448,6 +461,13 @@ foreach ($services_filenames as $services_filename)
 			.method {
 				height:28px;
 				vertical-align: top;
+			}
+			.hostname {
+				width:300px;
+				height:29px;
+				line-height:30px;
+				border: #ccc 1px solid;
+				background: #eee;
 			}
 			.parameter {
 				width:300px;
@@ -470,7 +490,7 @@ foreach ($services_filenames as $services_filename)
 		<h2>API Call:</h2>
 		<form name="ui" id="ui">
 			<table>
-				<tr class="hostname">
+				<tr>
 					<th width="100">Hostname: </th>
 					<td width="500"><input name="hostname" class="hostname" id="hostname" value="boxeebox" /></td>
 					<td>&nbsp;</td>

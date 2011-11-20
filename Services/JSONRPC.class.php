@@ -16,10 +16,7 @@ require_once(ROOT . '/Services/BaseClass.class.php');
 * Generate json encoded strings for JSONRPC methods
 */
 class JSONRPC extends BaseClass
-{
-	# Properties
-	public $method;
-	
+{	
 	/** 
 	* Returns a list of all available method calls
 	*
