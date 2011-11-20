@@ -336,7 +336,7 @@ foreach ($services_filenames as $services_filename)
 					parameterList.push('"' + parameter + '": ');
 					parameters.push(parameterValue);
 					// Retain Connect deviceid for future use
-					if (service == 'Device' && method == 'Connect' && parameter == 'deviceid')
+					if (service == 'Device' && parameter == 'deviceid')
 					{
 						window.deviceid = parameterValue;
 					}
