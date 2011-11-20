@@ -250,7 +250,15 @@ foreach ($services_filenames as $services_filename)
 					{
 						for (var parameter in services[service]['methods'][method]['parameters'])
 						{
-							$('<input type="text" class="parameter" name="' + parameter + '" /> <em>' + parameter + '</em><br />').appendTo("#parameters");
+							// Prep-populate Device service's deviceid parameter for convenience
+							if (service == 'Device' && parameter == 'deviceid' && typeof window.deviceid != 'undefined')
+							{
+								$('<input type="text" class="parameter" name="' + parameter + '" value="' + window.deviceid + '" /> <em>' + parameter + '</em><br />').appendTo("#parameters");
+							}
+							else
+							{
+								$('<input type="text" class="parameter" name="' + parameter + '" /> <em>' + parameter + '</em><br />').appendTo("#parameters");
+							}
 							$('<strong>$' + parameter + ', ' + '</strong>').appendTo("#prototype");
 							$('<em>' + services[service]['methods'][method]['parameters'][parameter]['description'] + '</em><br />').appendTo("#descriptions");
 						}
@@ -316,7 +324,15 @@ foreach ($services_filenames as $services_filename)
 				// Extract form parameter values
 				for (var parameter in services[service]['methods'][method]['parameters'])
 				{
-					parameterValue = $("[name=" + parameter + "]").val();
+					// Ensure Device.PairResponse code is treated as a string
+					if (service == 'Device' && method == 'PairResponse' && parameter == 'code')
+					{
+						parameterValue = '"' + $("[name=" + parameter + "]").val() + '"';
+					}
+					else
+					{
+						parameterValue = $("[name=" + parameter + "]").val();
+					}
 					parameterList.push('"' + parameter + '": ');
 					parameters.push(parameterValue);
 					// Retain Connect deviceid for future use
