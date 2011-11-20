@@ -64,7 +64,7 @@ class TCPJSONRPC
 		# Verify connection
 		if ($response === false) 
 		{
-			throw new Exception('socket_connect() failed: reason: ($response) ' . socket_strerror(socket_last_error($this->socket)));
+			throw new Exception('socket_connect() failed: reason: (' . $response . ') ' . socket_strerror(socket_last_error($this->socket)));
 		} 
 	}
 	
@@ -83,14 +83,14 @@ class TCPJSONRPC
 		# Verify success
 		if ($success === false)
 		{
-			throw new Exception('socket_write() failed: reason: ($success) ' . socket_strerror(socket_last_error($this->socket)));
+			throw new Exception('socket_write() failed: reason: (' . $success . ') ' . socket_strerror(socket_last_error($this->socket)));
 		}
 		# Read response from socket
 		$response = socket_read($this->socket, READ_LENGTH, PHP_NORMAL_READ);
 		# Verify success
 		if ($response === false)
 		{
-			throw new Exception('socket_write() failed: reason: ($response) ' . socket_strerror(socket_last_error($this->socket)));
+			throw new Exception('socket_write() failed: reason: (' . $response . ') ' . socket_strerror(socket_last_error($this->socket)));
 		}
 		# Return trimmed response (removes trailing newline)
 		return trim($response);

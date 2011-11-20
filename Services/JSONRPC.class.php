@@ -6,7 +6,11 @@
  */
 
 # Includes
-require_once('Services/BaseClass.class.php');
+if (!defined('ROOT'))
+{
+	define('ROOT', dirname(dirname(__FILE__)));
+}
+require_once(ROOT . '/Services/BaseClass.class.php');
 
 /** 
 * Generate json encoded strings for JSONRPC methods
