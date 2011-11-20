@@ -136,7 +136,7 @@ foreach ($services_filenames as $services_filename)
 				foreach ($reflection_parameters as $index => $reflection_parameter)
 				{
 					# Extract Doc comments
-					$parameters_comments = trim(str_replace("\0", '', str_replace("\t", '', str_replace("\r", '', str_replace("\n", '', str_replace('$' . $reflection_parameter->getName(), '', $method_comments_array_2[$index + 1]))))));
+					$parameters_comments = trim(str_replace("\0", '', str_replace("\t", '', str_replace("\r", '', str_replace("\n", '', str_replace('$' . $reflection_parameter->getName(), '', $method_comments_array_2[(isset($method_comments_array_2[$index + 1]) ? $index + 1 : $index)]))))));
 					# Add parameter to services array
 					$services[$class_name]['methods'][$reflection_method->getName()]['parameters'][$reflection_parameter->getName()] = array();
 					$services[$class_name]['methods'][$reflection_method->getName()]['parameters'][$reflection_parameter->getName()]['description'] = $parameters_comments;
