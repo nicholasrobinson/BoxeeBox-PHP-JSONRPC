@@ -64,14 +64,14 @@ if (!isset($_REQUEST['deviceid']) || isset($responseObject) && is_object($respon
 		<p>or</p>
 		<p><strong>2. Complete a New Device Pairing</strong></p>
 		<form method="POST" action="complex.php?action=pair">
-			<input type="text" name="deviceid" />deviceid<br />
+			<input type="text" name="deviceid" value="<?php echo (isset($_REQUEST['deviceid']) && isset($_REQUEST['action']) && $_REQUEST['action'] == 'register') ? $_REQUEST['deviceid'] : ''; ?>" />deviceid<br />
 			<input type="text" name="code" />type<br />
 			<input type="submit" />
 		</form>
 		<p>or</p>
 		<p><strong>3. Use a Paired Device</strong></p>
 		<form method="POST" action="complex.php?action=restore">
-			<input type="text" name="deviceid" />deviceid<br />
+			<input type="text" name="deviceid" value="<?php echo (isset($_REQUEST['deviceid']) && isset($_REQUEST['action']) && $_REQUEST['action'] == 'pair') ? $_REQUEST['deviceid'] : ''; ?>" />deviceid<br />
 			<input type="submit" />
 		</form>
 <?php
