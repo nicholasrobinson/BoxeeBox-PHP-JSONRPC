@@ -5,10 +5,12 @@
  *	Author:			Nicholas Robinson 11/19/2011
  */
 
+# Constants
+define('DEBUG', false);
+
 # Includes
 define('ROOT', dirname(__FILE__));
 require_once(ROOT . '/Connections/TCPJSONRPC.class.php');
-require_once(ROOT . '/Services/JSONRPC.class.php');
 
 /** 
 * Communicate with BoxeeBox via JSONRPC API
@@ -57,6 +59,7 @@ class BoxeeBoxPHPJSONRPC
 			throw new Exception('ERROR: Invalid Service specified');
 		}
 		# Instanciate service object
+		require_once(ROOT . '/Services/' . $service . '.class.php');
 		$serviceObject = new $service;
 		# Validate method
 		if (!method_exists($serviceObject, $method))
@@ -73,7 +76,7 @@ class BoxeeBoxPHPJSONRPC
 		# Send query to jsonrpc api
 		$response = $this->connection->send($jsonQuery);
 		# Return response
-		return $response;
+		return (DEBUG ? $jsonQuery . "\n\n" : '') . $response;
 	}
 	
 }

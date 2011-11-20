@@ -10,7 +10,7 @@
 ************************************************/
 
 # Process browser queries
-if (isset($_REQUEST['service']))
+if (isset($_REQUEST['hostname']) && isset($_REQUEST['service']) && isset($_REQUEST['method']))
 {
 	# Initialise payload array
 	$payload = array();
@@ -20,6 +20,8 @@ if (isset($_REQUEST['service']))
 	$response['success'] = false;
 
 	# Normalize service
+	if (isset($_REQUEST['hostname']))
+		$payload['hostname']		= $_REQUEST['hostname'];
 	if (isset($_REQUEST['service']))
 		$payload['service']		= $_REQUEST['service'];
 	# Normalize method
@@ -55,10 +57,20 @@ if (isset($_REQUEST['service']))
 		{
 			# Include BoxeeBoxPHPJSONRPC class
 			require_once('../BoxeeBoxPHPJSONRPC.class.php');
-			# Connect to BoxeeBox
-			$bb = new BoxeeBoxPHPJSONRPC('boxeebox');
-			# Issue JSONRPC.Ping Query
-			$output = $bb->$payload['service']($payload['method'], $payload['parameters']);
+			# Attempt to execute
+			try 
+			{
+				# Connect to BoxeeBox
+				$bb = new BoxeeBoxPHPJSONRPC($payload['hostname']);
+				# Issue JSONRPC.Ping Query
+				array_unshift($payload['parameters'], $payload['method']);
+				$output = call_user_func_array(array($bb, $payload['service']), $payload['parameters']);
+			}
+			# Catch exceptions
+			catch (Exception $error)
+			{
+				$output = 'CONNECTION FAILURE';
+			}
 		}
 	}
 	# Otherwise indicate error
@@ -216,6 +228,7 @@ foreach ($services_filenames as $services_filename)
 					if (method == "Select Method")
 					{
 						$(".parameters").hide();
+						$(".execute").hide();
 						return false;
 					}
 					if (typeof services[service]['methods'][method]['description'] != "undefined")
@@ -235,7 +248,7 @@ foreach ($services_filenames as $services_filename)
 					else
 						$('<em>This method takes no parameters</em>').appendTo("#parameters");
 					$('<strong>);</strong><br />').appendTo("#prototype");
-					$('<em>returns ' + services[service]['methods'][method]['return_description'] + '</em>').appendTo("#prototype"); 
+					//$('<em>returns ' + services[service]['methods'][method]['return_description'] + '</em>').appendTo("#prototype"); 
 					$(".execute").show();
 					$(".parameters").show();
 				});
@@ -265,6 +278,13 @@ foreach ($services_filenames as $services_filename)
 					$("#results").html('');
 				});
 				
+				// Create hostname keypress handler
+				$('.hostname').live('keypress', function (e) {
+					var code = (e.keyCode ? e.keyCode : e.which);
+					if (code == 13) 
+						return false;
+				});
+
 				// Create parameter keypress handler
 				$('.parameter').live('keypress', function (e) {
 					var code = (e.keyCode ? e.keyCode : e.which);
@@ -276,6 +296,7 @@ foreach ($services_filenames as $services_filename)
 			function execute()
 			{
 				// Extract Form Values
+				var hostname = $("#hostname").val();
 				var service = $("#service").val();
 				var method = $("#method").val();
 				var parameters = new Array();
@@ -300,13 +321,14 @@ foreach ($services_filenames as $services_filename)
 				}
 				jsonPayload = jsonPayload + ']'; 
 				// Output Query
-				var query = 'Executing ' + service + ':' + method + '(' + parameters.join(', ') + ')';
+				var query = 'Executing ' + service + '.' + method + '(' + parameters.join(', ') + ')';
 				$('<p class="query">' + query + '</p><hr class="results" />').prependTo("#results");
 				// POST to API with JSON encoded query object
 				$.ajax({
 					type: 'POST',
 					url: '',
 					data:	{
+							'hostname' : hostname,
 							'service' : service,
 							'method' : method,
 							'parameters' : jsonPayload
@@ -448,6 +470,11 @@ foreach ($services_filenames as $services_filename)
 		<h2>API Call:</h2>
 		<form name="ui" id="ui">
 			<table>
+				<tr class="hostname">
+					<th width="100">Hostname: </th>
+					<td width="500"><input name="hostname" class="hostname" id="hostname" value="boxeebox" /></td>
+					<td>&nbsp;</td>
+				</tr>
 				<tr class="service">
 					<th width="100">Service: </th>
 					<td width="500"><select name="service" class="parameter" id="service"></select></td>

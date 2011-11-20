@@ -21,7 +21,7 @@ class JSONRPC extends BaseClass
 	public $method;
 	
 	/** 
-	* Generate string for JSONRPC.Introspect method
+	* Returns a list of all available method calls
 	*
 	* @return string
 	*/
@@ -32,7 +32,8 @@ class JSONRPC extends BaseClass
 	}
 	
 	/** 
-	* Generate string for JSONRPC.Version method
+	* Returns the version of this API (not JSONRPC version). 
+	* An even number refers to a stable version while odd number is development.
 	*
 	* @return string
 	*/
@@ -43,7 +44,18 @@ class JSONRPC extends BaseClass
 	}
 	
 	/** 
-	* Generate string for JSONRPC.Ping method
+	* Returns a list of client permissions
+	*
+	* @return string
+	*/
+	public function Permission()
+	{
+		$this->method = "JSONRPC.Permission";
+		return self::stringify($this);
+	}
+	
+	/** 
+	* Returns pong!
 	*
 	* @return string
 	*/
