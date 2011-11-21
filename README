@@ -25,7 +25,7 @@ To maintain connection state there are many options, including:
 - Local Storage
 - Databases
 - HTML Form submission [POST/GET] (as shown in Examples/complex.php)
-- Javascript (as shown in Examples/browser.php)
+- Javascript (as shown in Examples/keypress.php and Examples/browser.php)
 
 Please let me know if you find this useful or come up with any novel implementations.
 
