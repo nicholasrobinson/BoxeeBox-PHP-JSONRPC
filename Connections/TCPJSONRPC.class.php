@@ -22,8 +22,6 @@ class TCPJSONRPC
 	/** 
 	* Create TCP Socket
 	*
-	* @param  $serverAddress	BoxeeBox Server Address
-	*
 	* @return null
 	*/
 	public function __construct()
