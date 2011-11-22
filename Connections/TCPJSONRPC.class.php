@@ -28,7 +28,7 @@ class TCPJSONRPC
 	{
 		# Initialise TCP socket
 		$this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-		# Verify successful socket creation creation
+		# Verify successful socket creation
 		if ($this->socket === false) 
 		{
 			throw new Exception('socket_create() failed: reason: ' . socket_strerror(socket_last_error()));
