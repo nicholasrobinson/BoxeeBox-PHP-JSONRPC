@@ -17,7 +17,6 @@ if (isset($_REQUEST['hostname']) && isset($_REQUEST['service']) && isset($_REQUE
 
 	# Initialise repsonse array
 	$response = array();
-	$response['success'] = false;
 
 	# Normalize hostname
 	if (isset($_REQUEST['hostname']))
