@@ -73,7 +73,7 @@ if (isset($_REQUEST['hostname']) && isset($_REQUEST['service']) && isset($_REQUE
 				{
 					$bb->Device('Connect', $payload['deviceid']);
 				}
-				# Issue JSONRPC.Ping Query
+				# Execute JSONRPC API Query
 				array_unshift($payload['parameters'], $payload['method']);
 				$output = call_user_func_array(array($bb, $payload['service']), $payload['parameters']);
 			}
